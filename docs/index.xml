@@ -2,21 +2,21 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>In-Circuit ESP8266 Programming Tool</title>
-    <link>http://rluckom.github.io/esp-programmer/</link>
+    <link>https://rluckom.github.io/esp-programmer/</link>
     <description>Recent content on In-Circuit ESP8266 Programming Tool</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <lastBuildDate>Sat, 25 Nov 2017 07:09:34 -0500</lastBuildDate>
     
-	<atom:link href="http://rluckom.github.io/esp-programmer/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="https://rluckom.github.io/esp-programmer/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>Reprogramming Wifi Switch</title>
-      <link>http://rluckom.github.io/esp-programmer/posts/reprogramming-wifi-switch/</link>
+      <link>https://rluckom.github.io/esp-programmer/posts/reprogramming-wifi-switch/</link>
       <pubDate>Sat, 25 Nov 2017 07:09:34 -0500</pubDate>
       
-      <guid>http://rluckom.github.io/esp-programmer/posts/reprogramming-wifi-switch/</guid>
+      <guid>https://rluckom.github.io/esp-programmer/posts/reprogramming-wifi-switch/</guid>
       <description>My condo&amp;rsquo;s living room is&amp;hellip;challenging from a lighting and electric standpoint. It&amp;rsquo;s about 18&amp;rsquo; by 21&amp;rsquo;, with ceilings that slope down from 22&amp;rsquo; at one side to 11&amp;rsquo; from the other. There is a light switch in one corner, connected to a single outlet about 8&amp;rsquo; away. If I want that light switch to control several lights at various parts of the room, someone would have to run wiring around ~40&amp;rsquo; of wall, over doorways and through studs.</description>
     </item>
     

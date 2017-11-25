@@ -3,29 +3,29 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
-    <loc>http://rluckom.github.io/esp-programmer/posts/reprogramming-wifi-switch/</loc>
+    <loc>https://rluckom.github.io/esp-programmer/posts/reprogramming-wifi-switch/</loc>
     <lastmod>2017-11-25T07:09:34-05:00</lastmod>
   </url>
   
   <url>
-    <loc>http://rluckom.github.io/esp-programmer/categories/</loc>
+    <loc>https://rluckom.github.io/esp-programmer/categories/</loc>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>http://rluckom.github.io/esp-programmer/</loc>
-    <lastmod>2017-11-25T07:09:34-05:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>http://rluckom.github.io/esp-programmer/posts/</loc>
+    <loc>https://rluckom.github.io/esp-programmer/</loc>
     <lastmod>2017-11-25T07:09:34-05:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>http://rluckom.github.io/esp-programmer/tags/</loc>
+    <loc>https://rluckom.github.io/esp-programmer/posts/</loc>
+    <lastmod>2017-11-25T07:09:34-05:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://rluckom.github.io/esp-programmer/tags/</loc>
     <priority>0</priority>
   </url>
   

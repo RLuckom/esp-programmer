@@ -1,4 +1,4 @@
-baseURL = "http://rluckom.github.io/esp-programmer/"
+baseURL = "https://rluckom.github.io/esp-programmer/"
 languageCode = "en-us"
 title = "In-Circuit ESP8266 Programming Tool"
 theme = "kiera"
