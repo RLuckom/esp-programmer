@@ -1,5 +1,5 @@
 ---
-title: "Reprogramming Wifi Switch"
+title: "Reprogramming A $13 Consumer Wifi Outlet"
 date: 2017-11-25T07:09:34-05:00
 draft: false
 ---
