@@ -3,3 +3,4 @@ languageCode = "en-us"
 title = "In-Circuit ESP8266 Programming Tool"
 theme = "kiera"
 publishDir = "../docs"
+canonifyURLs=true
