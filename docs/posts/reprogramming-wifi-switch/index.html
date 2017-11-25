@@ -94,12 +94,12 @@ would stop sending &ldquo;turn on&rdquo; requests to the others, which would tim
 out after 11 seconds and turn their lights off. It&rsquo;s not a sophisticated
 system, but it worked.</p>
 
-<p>But I wasn&rsquo;t happy with the amount of hardware required, however. For
-each outlet I wanted to control, I needed to use one ESP8266 (powered
-by a wall wart) and one relay (plugged into an always-on outlet. That
-meant that I needed two plugs, or one full outlet per light. I&rsquo;ve always
-avoided building electronics that run on mains power, so I was using
-nice Digital Loggers relays, which seemed like overkill at $23 each.
+<p>I wasn&rsquo;t happy with the amount of hardware required. For each outlet I
+wanted to control, I needed to use one ESP8266 (powered by a wall wart)
+and one relay (plugged into an always-on outlet. That meant that I
+needed two plugs, or one full outlet per light. I&rsquo;ve always avoided
+building electronics that run on mains power, so I was using nice
+Digital Loggers relays, which seemed like overkill at $23 each.
 Adding in an ESP8266 and power supply, the BOM for the project to
 control 3 lights was around $80. Not to mention it looked bad to have
 the exposed ESP chips hanging off their power supplies, with tiny
@@ -134,6 +134,8 @@ noticed that many of the pads on the ESP-12 module did not seem
 to be connected to the rest of the board at all, which made sense
 if it only needed to use one or two IO pins. That would also make
 it easier to reason about.</p>
+
+<p><img src="/static/img/annotated_relay.png" alt="Annotated relay internals" /></p>
 
 <p>Step one was to figure out exactly how it worked, to ensure that
 I&rsquo;d be able to control the relay if I could reprogram the chip.

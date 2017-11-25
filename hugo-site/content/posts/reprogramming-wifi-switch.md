@@ -26,18 +26,23 @@ activate the sensor chip, which would tell the other chips to turn
 on their lights. When I turned off the light switch, the sensor chip
 would stop sending "turn on" requests to the others, which would time
 out after 11 seconds and turn their lights off. It's not a sophisticated
-system, but it worked.
+system, but it worked. At first I though about using MQTT queues, but then
+I decided to use a heartbest from the sensor directly.
 
-But I wasn't happy with the amount of hardware required, however. For
-each outlet I wanted to control, I needed to use one ESP8266 (powered
-by a wall wart) and one relay (plugged into an always-on outlet. That
-meant that I needed two plugs, or one full outlet per light. I've always
-avoided building electronics that run on mains power, so I was using
-nice Digital Loggers relays, which seemed like overkill at $23 each.
+{{<figure src="/img/first_design.jpg" title="Initial system design">}}
+
+I wasn't happy with the amount of hardware required. For each outlet I 
+wanted to control, I needed to use one ESP8266 (powered by a wall wart)
+and one relay (plugged into an always-on outlet. That meant that I
+needed two plugs, or one full outlet per light. I've always avoided
+building electronics that run on mains power, so I was using nice
+Digital Loggers relays, which seemed like overkill at $23 each.
 Adding in an ESP8266 and power supply, the BOM for the project to
 control 3 lights was around $80. Not to mention it looked bad to have
 the exposed ESP chips hanging off their power supplies, with tiny
 wires leading in to the relay inputs.
+
+{{<figure src="/img/00v1_assembly.jpg" title="Yuck">}}
 
 What I wanted was a solution that integrated a programmable ESP-8266,
 power supply, and relay into a nice, clean, UL-listed package that I
@@ -45,9 +50,12 @@ wouldn't be embarassed to have plugged in to an outlet in my living
 room. Fortunately, I wasn't the first person to have this idea, and
 a kind soul at [hackaday.io](https://hackaday.io/project/20316-wifi-outlet-hacking)
 had already identified a type of mass-produced, reliable-looking wifi
-outlet that used an ESP-8266. I picked up two for $24. These came 
-programmed to be controlled by an android or ios app, but I never
-give my wifi password to devices unless I can program them myself or
+outlet that used an ESP-8266. I picked up two for $24. 
+
+{{<figure src="/img/relay_front_back.png" title="Wifi outlet">}}
+
+These came  programmed to be controlled by an android or ios app, but I try to avoid
+giving my wifi password to devices unless I can program them myself or
 trust them to be updated regularly. Besides, it just seems crazy to 
 me that a request to turn on a light in my house would ever need 
 to leave my local network.
@@ -61,13 +69,15 @@ chip already mounted on a larger board.
 When the wifi outlets came, I cracked one open and saw that I was
 looking at close to a best-case scenario. One of the well-known
 ESP-12 modules was mounted on one corner of the board, nicely
-labeled and with a fairly wide margin around it, making it
+labeled and with a wide margin around it, making it
 fairly accessible to probing. I didn't know _how_ I was going to
 reprogram it, but I didn't see any obvious dealbreakers. I also
 noticed that many of the pads on the ESP-12 module did not seem
 to be connected to the rest of the board at all, which made sense
 if it only needed to use one or two IO pins. That would also make
 it easier to reason about.
+
+{{<figure src="/img/annotated_relay.png" title="Annotated wifi switch internals">}}
 
 Step one was to figure out exactly how it worked, to ensure that
 I'd be able to control the relay if I could reprogram the chip.
@@ -122,6 +132,8 @@ Finally I tried a design with two tiny holes for each wire, so that a loop
 at the bottom of the block would contact the pad. Even this was too uneven for
 all the necessary wires to make contact at the same time.
 
+{{<figure src="/img/iterations.png" title="Many, many iterations" class="full">}}
+
 Another issue I ran into was the precision limits of my 3D printer. The holes for the
 wires needed to be around 1mm. The nozzle on my 3D printer is 0.4mm. In practice,
 this means that the "slicer" program that generates the path for the 3D printer
@@ -133,6 +145,8 @@ featuring extremely low speeds and a moderate-but-not-too-fine layer height. Usi
 these settings increased the time to print a small block by a factor of about 12,
 from 5 minutes to just over an hour, but gave me the extra precision I needed.
 
+{{<figure src="/img/00final_guide.jpg" title="Print time: 1 hour">}}
+
 My last attempt at programming before I gave up on hookup wire was with the block
 that held tiny loops of wire onto the pads. This at least came close enough to
 working that I was able to test the programming process. Unlike the development
@@ -143,7 +157,14 @@ need an intermediate chip to perform this function, and you need to wire it into
 a circuit with the chip you want to program. This programming chip also allows you
 to listen to any messages the chip might send out. There were a few times when I
 was able to pick up garbled signals on the serial line when I reset the chip. Even
-though it wasn't actual text, it made me think I was on the right track.
+though it wasn't actual text, it made me think I was on the right track. I also 
+learned that the power supplied by the programmer was insufficient to reliably
+power the chip, so I had to use my bench power supply to feed 3.3V to the ESP-12
+and the programmer.
+
+{{<figure src="/img/00programmer.jpg" title="Programmer chip">}}
+
+{{<figure src="/img/annotated_esp.jpg" title="ESP-12 connections for programming. Labels are what the pins should connect to, not what they are.">}}
 
 When I had tried and failed with every configuration I could think of with the
 materials I had on hand, I went back to researching existing designs. It was then
@@ -151,6 +172,8 @@ that I discovered "pogo pins" which as the name suggests are small, spring-loade
 pins used in professiona bed of nails testers. They're fairly inexpensive--I got
 100 in the size I needed for about $12 including shipping without looking too
 hard for deals.
+
+{{<figure src="/img/00pogo_pin.jpg" title="100 count pogo pins">}}
 
 When the pogo pins arrived, it was 2 weeks after I had first started this project,
 and I had been slowly ramping up the seriousness with which I was approaching
@@ -166,11 +189,15 @@ small assemblies took about 2.5 hours, but at the end, when I tested them for
 continuity from the spring-loaded tip to the end of a wire attached to the Dupont
 connector, I was confident that I had the building blocks of a reliable system.
 
+{{<figure src="/img/00pin_assembly.jpg" title="Pogo pin, wire, and Dupont connector">}}
+
 A few more experiments began to suggest the best-yet design for the bed of nails.
 It would use a block that fit exactly around the ESP-8266 chip, with holes guiding 
 the pogo pins down exactly onto the pads. Surrounding that would be a pair of plates
 connected by screws, so that the whole system, relay and all, could be held in place
 and the pins clamped down onto the pads to ensure a good connection. 
+
+{{<figure src="/img/00clamp_oblique.jpg" title="Clamp ensures a good connection, middle screws press down guide and prevent breaking pins by overtightening.">}}
 
 Finally, I was ready for a test. Previously, I had used the reset pad as a test method.
 I knew that shorting the reset pad to ground should have made the board reset, which
@@ -191,6 +218,8 @@ I looked over at the board, the red LED that mirrored the relay state was slowly
 on and off. I put the plastic cover back on, plugged in the relay, and plugged a light into
 it. Click. The light went on. Click. The light went off. Click. Click. Click. I just 
 watched it for a while. Then I ordered a few more relays :-).
+
+{{<figure src="/img/success.png" title="Success after 3 weeks" class="full">}}
 
 (0) [This instructable](http://www.instructables.com/id/How-to-build-a-custom-bed-of-nails-tester-for-your/)
 for a bed of nails tester for a 3D printer circuit board demonstrates the
