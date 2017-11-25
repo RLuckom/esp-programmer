@@ -65,7 +65,7 @@
 
         
 
-        <li>11 min read</li>
+        <li>12 min read</li>
     </ul>
 </aside>
     
@@ -92,7 +92,22 @@ activate the sensor chip, which would tell the other chips to turn
 on their lights. When I turned off the light switch, the sensor chip
 would stop sending &ldquo;turn on&rdquo; requests to the others, which would time
 out after 11 seconds and turn their lights off. It&rsquo;s not a sophisticated
-system, but it worked.</p>
+system, but it worked. At first I though about using MQTT queues, but then
+I decided to use a heartbest from the sensor directly.</p>
+
+
+<figure >
+    
+        <img src="/img/first_design.jpg" />
+    
+    
+    <figcaption>
+        <h4>Initial system design</h4>
+        
+    </figcaption>
+    
+</figure>
+
 
 <p>I wasn&rsquo;t happy with the amount of hardware required. For each outlet I
 wanted to control, I needed to use one ESP8266 (powered by a wall wart)
@@ -105,15 +120,44 @@ control 3 lights was around $80. Not to mention it looked bad to have
 the exposed ESP chips hanging off their power supplies, with tiny
 wires leading in to the relay inputs.</p>
 
+
+<figure >
+    
+        <img src="/img/00v1_assembly.jpg" />
+    
+    
+    <figcaption>
+        <h4>Yuck</h4>
+        
+    </figcaption>
+    
+</figure>
+
+
 <p>What I wanted was a solution that integrated a programmable ESP-8266,
 power supply, and relay into a nice, clean, UL-listed package that I
 wouldn&rsquo;t be embarassed to have plugged in to an outlet in my living
 room. Fortunately, I wasn&rsquo;t the first person to have this idea, and
 a kind soul at <a href="https://hackaday.io/project/20316-wifi-outlet-hacking">hackaday.io</a>
 had already identified a type of mass-produced, reliable-looking wifi
-outlet that used an ESP-8266. I picked up two for $24. These came
-programmed to be controlled by an android or ios app, but I never
-give my wifi password to devices unless I can program them myself or
+outlet that used an ESP-8266. I picked up two for $24.</p>
+
+
+<figure >
+    
+        <img src="/img/relay_front_back.png" />
+    
+    
+    <figcaption>
+        <h4>Wifi outlet</h4>
+        
+    </figcaption>
+    
+</figure>
+
+
+<p>These came  programmed to be controlled by an android or ios app, but I try to avoid
+giving my wifi password to devices unless I can program them myself or
 trust them to be updated regularly. Besides, it just seems crazy to
 me that a request to turn on a light in my house would ever need
 to leave my local network.</p>
@@ -127,7 +171,7 @@ chip already mounted on a larger board.</p>
 <p>When the wifi outlets came, I cracked one open and saw that I was
 looking at close to a best-case scenario. One of the well-known
 ESP-12 modules was mounted on one corner of the board, nicely
-labeled and with a fairly wide margin around it, making it
+labeled and with a wide margin around it, making it
 fairly accessible to probing. I didn&rsquo;t know <em>how</em> I was going to
 reprogram it, but I didn&rsquo;t see any obvious dealbreakers. I also
 noticed that many of the pads on the ESP-12 module did not seem
@@ -135,7 +179,19 @@ to be connected to the rest of the board at all, which made sense
 if it only needed to use one or two IO pins. That would also make
 it easier to reason about.</p>
 
-<p><img src="/static/img/annotated_relay.png" alt="Annotated relay internals" /></p>
+
+<figure >
+    
+        <img src="/img/annotated_relay.png" />
+    
+    
+    <figcaption>
+        <h4>Annotated wifi switch internals</h4>
+        
+    </figcaption>
+    
+</figure>
+
 
 <p>Step one was to figure out exactly how it worked, to ensure that
 I&rsquo;d be able to control the relay if I could reprogram the chip.
@@ -190,6 +246,20 @@ Finally I tried a design with two tiny holes for each wire, so that a loop
 at the bottom of the block would contact the pad. Even this was too uneven for
 all the necessary wires to make contact at the same time.</p>
 
+
+<figure class="full">
+    
+        <img src="/img/iterations.png" />
+    
+    
+    <figcaption>
+        <h4>Many, many iterations</h4>
+        
+    </figcaption>
+    
+</figure>
+
+
 <p>Another issue I ran into was the precision limits of my 3D printer. The holes for the
 wires needed to be around 1mm. The nozzle on my 3D printer is 0.4mm. In practice,
 this means that the &ldquo;slicer&rdquo; program that generates the path for the 3D printer
@@ -201,6 +271,20 @@ featuring extremely low speeds and a moderate-but-not-too-fine layer height. Usi
 these settings increased the time to print a small block by a factor of about 12,
 from 5 minutes to just over an hour, but gave me the extra precision I needed.</p>
 
+
+<figure >
+    
+        <img src="/img/00final_guide.jpg" />
+    
+    
+    <figcaption>
+        <h4>Print time: 1 hour</h4>
+        
+    </figcaption>
+    
+</figure>
+
+
 <p>My last attempt at programming before I gave up on hookup wire was with the block
 that held tiny loops of wire onto the pads. This at least came close enough to
 working that I was able to test the programming process. Unlike the development
@@ -211,7 +295,38 @@ need an intermediate chip to perform this function, and you need to wire it into
 a circuit with the chip you want to program. This programming chip also allows you
 to listen to any messages the chip might send out. There were a few times when I
 was able to pick up garbled signals on the serial line when I reset the chip. Even
-though it wasn&rsquo;t actual text, it made me think I was on the right track.</p>
+though it wasn&rsquo;t actual text, it made me think I was on the right track. I also
+learned that the power supplied by the programmer was insufficient to reliably
+power the chip, so I had to use my bench power supply to feed 3.3V to the ESP-12
+and the programmer.</p>
+
+
+<figure >
+    
+        <img src="/img/00programmer.jpg" />
+    
+    
+    <figcaption>
+        <h4>Programmer chip</h4>
+        
+    </figcaption>
+    
+</figure>
+
+
+
+<figure >
+    
+        <img src="/img/annotated_esp.jpg" />
+    
+    
+    <figcaption>
+        <h4>ESP-12 connections for programming. Labels are what the pins should connect to, not what they are.</h4>
+        
+    </figcaption>
+    
+</figure>
+
 
 <p>When I had tried and failed with every configuration I could think of with the
 materials I had on hand, I went back to researching existing designs. It was then
@@ -219,6 +334,20 @@ that I discovered &ldquo;pogo pins&rdquo; which as the name suggests are small, 
 pins used in professiona bed of nails testers. They&rsquo;re fairly inexpensive&ndash;I got
 100 in the size I needed for about $12 including shipping without looking too
 hard for deals.</p>
+
+
+<figure >
+    
+        <img src="/img/00pogo_pin.jpg" />
+    
+    
+    <figcaption>
+        <h4>100 count pogo pins</h4>
+        
+    </figcaption>
+    
+</figure>
+
 
 <p>When the pogo pins arrived, it was 2 weeks after I had first started this project,
 and I had been slowly ramping up the seriousness with which I was approaching
@@ -234,11 +363,39 @@ small assemblies took about 2.5 hours, but at the end, when I tested them for
 continuity from the spring-loaded tip to the end of a wire attached to the Dupont
 connector, I was confident that I had the building blocks of a reliable system.</p>
 
+
+<figure >
+    
+        <img src="/img/00pin_assembly.jpg" />
+    
+    
+    <figcaption>
+        <h4>Pogo pin, wire, and Dupont connector</h4>
+        
+    </figcaption>
+    
+</figure>
+
+
 <p>A few more experiments began to suggest the best-yet design for the bed of nails.
 It would use a block that fit exactly around the ESP-8266 chip, with holes guiding
 the pogo pins down exactly onto the pads. Surrounding that would be a pair of plates
 connected by screws, so that the whole system, relay and all, could be held in place
 and the pins clamped down onto the pads to ensure a good connection.</p>
+
+
+<figure >
+    
+        <img src="/img/00clamp_oblique.jpg" />
+    
+    
+    <figcaption>
+        <h4>Clamp ensures a good connection, middle screws press down guide and prevent breaking pins by overtightening.</h4>
+        
+    </figcaption>
+    
+</figure>
+
 
 <p>Finally, I was ready for a test. Previously, I had used the reset pad as a test method.
 I knew that shorting the reset pad to ground should have made the board reset, which
@@ -259,6 +416,20 @@ I looked over at the board, the red LED that mirrored the relay state was slowly
 on and off. I put the plastic cover back on, plugged in the relay, and plugged a light into
 it. Click. The light went on. Click. The light went off. Click. Click. Click. I just
 watched it for a while. Then I ordered a few more relays :-).</p>
+
+
+<figure class="full">
+    
+        <img src="/img/success.png" />
+    
+    
+    <figcaption>
+        <h4>Success after 3 weeks</h4>
+        
+    </figcaption>
+    
+</figure>
+
 
 <p>(0) <a href="http://www.instructables.com/id/How-to-build-a-custom-bed-of-nails-tester-for-your/">This instructable</a>
 for a bed of nails tester for a 3D printer circuit board demonstrates the
