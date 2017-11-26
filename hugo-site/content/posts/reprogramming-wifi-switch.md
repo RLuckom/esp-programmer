@@ -125,7 +125,7 @@ This was my introduction to just how demanding the tolerances for electronics
 really are.  I iterated through 12 different designs for my bed of nails
 block. First, I thought I could use breadboard wire that already had little pins
 at the end. But between the varying lengths of the pins and the need to angle
-the wires in a fan to accound for the thickness of the insulation, this failed
+the wires in a fan to account for the thickness of the insulation, this failed
 quickly. Next I started using single-strand hookup wire. Again, any design that
 relied on the length of the uninsulated tip of the wire proved too unreliable.
 Finally I tried a design with two tiny holes for each wire, so that a loop
