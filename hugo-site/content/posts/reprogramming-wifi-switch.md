@@ -169,7 +169,7 @@ and the programmer.
 When I had tried and failed with every configuration I could think of with the
 materials I had on hand, I went back to researching existing designs. It was then
 that I discovered "pogo pins" which as the name suggests are small, spring-loaded
-pins used in professiona bed of nails testers. They're fairly inexpensive--I got
+pins used in professional bed of nails testers. They're fairly inexpensive--I got
 100 in the size I needed for about $12 including shipping without looking too
 hard for deals.
 
@@ -201,7 +201,7 @@ and the pins clamped down onto the pads to ensure a good connection.
 
 Finally, I was ready for a test. Previously, I had used the reset pad as a test method.
 I knew that shorting the reset pad to ground should have made the board reset, which
-looked like a few flases of the blue onboard LED followed by a blue pulse. But
+looked like a few flashes of the blue onboard LED followed by a blue pulse. But
 now, when I grounded the reset pin, a red LED came on, and none of the blue ones did.
 By trial and error, I realized that if I did not make the specified connection between
 GPIO 16 and ground during startup, the regular reset would happen. But if GPIO 16
