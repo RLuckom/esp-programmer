@@ -221,6 +221,10 @@ watched it for a while. Then I ordered a few more relays :-).
 
 {{<figure src="/img/success.png" title="Success after 3 weeks" class="full">}}
 
+And the best part?
+
+{{<figure src="/img/better_outlet.png" title="Much better">}}
+
 (0) [This instructable](http://www.instructables.com/id/How-to-build-a-custom-bed-of-nails-tester-for-your/)
 for a bed of nails tester for a 3D printer circuit board demonstrates the
 principle nicely.
