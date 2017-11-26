@@ -121,7 +121,7 @@ the circuit[0]. I figured that I would be able to 3D print something that
 would allow me to use the bits of breadboard wires and hookup wire I already
 had available as a rudimentary bed of nails.
 
-This was my introduction to just how demanding the tolerances for electronice
+This was my introduction to just how demanding the tolerances for electronics
 really are.  I iterated through 12 different designs for my bed of nails
 block. First, I thought I could use breadboard wire that already had little pins
 at the end. But between the varying lengths of the pins and the need to angle
